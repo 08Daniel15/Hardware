@@ -10,8 +10,8 @@ public:
 private:
 	
 	std::string sensID;
-	std::string path = "/home/daniel/Documents/git/Hardware/DS18B20/";
-	std::string file_name = "testFile.txt";
+	std::string path = "/sys/bus/w1/devices/28-000000bead93/";
+	std::string file_name = "w1_slave";
 	std::string filePath = "";
 	
 	double get_value_from_file();
