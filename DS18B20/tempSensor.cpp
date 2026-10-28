@@ -1,19 +1,38 @@
 #include "tempSensor.h"
 
-tempSensor::tempSensor(std::string sensorID){
+tempSensor::tempSensor(std::string sensorID, std::string target){
 	sensID = sensorID;
-	std::cout << sensID << std::endl;
+	
+    std::cout << "Sensor target mode =  " << target << std::endl;
+
+    if(target == "raspi"){
+        path = "/sys/bus/w1/devices/28-000000bead93/";
+        filePath = path + file_name;
+    }
+    else if (target == "simulation"){
+        path = "/";
+        filePath = path + file_name;
+    }
+    else{
+        std::cout << "no valid target" << std::endl;
+    }
+
+    std::cout << "Sensor ID = " << sensID << "   File path = " << filePath << std::endl;
+
 }
 
 
 double tempSensor::get_value_from_file(){
-	std::cout << "nothing to do in get_value_from_file" << std::endl;
+
 	std::string myString = "";
-	std::ifstream mein_file(filePath);
-	int temp = -999;
-    int stelle = 0;
     std::string str_wert = "";
+    int temp = -999;
+    int stelle = 0;
     float wert = 0.0;
+
+
+	std::ifstream mein_file(filePath);
+    
 
     if (mein_file.is_open()) {
        // 2. Zeile für Zeile lesen, solange Text vorhanden ist
@@ -21,13 +40,12 @@ double tempSensor::get_value_from_file(){
 
             if (myString.find("t") != std::string::npos){
 
-                //std::cout << myString << std::endl;
-                stelle = myString.find("t=");
-                //std::cout << "Stelle = " << stelle << std::endl;
-                str_wert = myString.substr(stelle + 2 );
-                //std::cout << "str_wert = " << str_wert << std::endl;
+                
+                stelle = myString.find("t=");                   // Index an welcher Stelle "t" steht
+                str_wert = myString.substr(stelle + 2 );        // Index + die beiden character Stellen (t=)
+                
                 wert = std::stod(str_wert) / 1000;
-                std::cout << "wert = " << wert << std::endl;
+                
             }
             
         }
@@ -36,19 +54,15 @@ double tempSensor::get_value_from_file(){
     }    
     else{
         std::cout << "Datei konnte nicht gelesen werden" << std::endl;
+        wert = -999;
     }
 
 	return wert;
 }
 
 double tempSensor::readData(){
-	std::cout << "Welcome to first method" << std::endl;
 
 	double testvariable = 0.0;
-
-	filePath = path + file_name;
-
-	std::cout << "File path = " << filePath << std::endl;
 
 	testvariable = get_value_from_file();
 

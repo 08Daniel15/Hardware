@@ -1,7 +1,7 @@
 #include <iostream>
 #include "tempSensor.h"
 
-tempSensor sensor1("12345678");	
+tempSensor sensor1("12345678" , "simulation");	
 double value = 0.0;
 
 int main() {

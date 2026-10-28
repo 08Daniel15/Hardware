@@ -4,13 +4,13 @@
 class tempSensor{
 
 public:
-	tempSensor(std::string sensorID);
+	tempSensor(std::string sensorID, std::string target);
 	double readData();
 
 private:
 	
 	std::string sensID;
-	std::string path = "/sys/bus/w1/devices/28-000000bead93/";
+	std::string path = "";
 	std::string file_name = "w1_slave";
 	std::string filePath = "";
 	
