@@ -30,6 +30,7 @@ double tempSensor::get_value_from_file(){
     int stelle = 0;
     float wert = 0.0;
 
+    std::cout << filePath << std::endl;
 
 	std::ifstream mein_file(filePath);
     

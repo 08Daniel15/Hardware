@@ -10,7 +10,7 @@ double tempSens2 = 0.0;
 
 int main() {
 	
-	std::cout << "nothing to do here" << std::endl;
+	std::cout << "########### Start main() ############" << std::endl;
 
 	tempSens1 = temp_Sensor1.readData();
 	tempSens2 = temp_Sensor2.readData();
