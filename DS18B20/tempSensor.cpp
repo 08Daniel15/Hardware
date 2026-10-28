@@ -6,7 +6,7 @@ tempSensor::tempSensor(std::string sensorID, std::string target){
     std::cout << "Sensor target mode =  " << target << std::endl;
 
     if(target == "raspi"){
-        path = "/sys/bus/w1/devices/28-000000bead93/";
+        path = "/sys/bus/w1/devices/" + sensorID + "/";
         filePath = path + file_name;
     }
     else if (target == "simulation"){
