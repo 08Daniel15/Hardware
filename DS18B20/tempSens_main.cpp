@@ -14,9 +14,9 @@ int main() {
 
 	
 	tempSens1 = temp_Sensor1.readData();
-	tempSens2 = temp_Sensor2.readData();
-
 	std::cout << "tempSens1 = " << tempSens1 << std::endl;
+	
+	tempSens2 = temp_Sensor2.readData();
 	std::cout << "tempSens2 = " << tempSens2 << std::endl;
 
 	return 0;
