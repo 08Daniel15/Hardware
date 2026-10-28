@@ -8,6 +8,7 @@ tempSensor::tempSensor(std::string sensorID, std::string target){
     if(target == "raspi"){
         path = "/sys/bus/w1/devices/" + sensorID + "/";
         filePath = path + file_name;
+        filePath = "/sys/bus/w1/devices/28-000000bead93/w1_slave";
     }
     else if (target == "simulation"){
         path = "/";
