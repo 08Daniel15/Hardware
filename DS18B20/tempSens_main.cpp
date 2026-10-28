@@ -3,7 +3,10 @@
 
 tempSensor temp_Sensor1("28-000000bead93" , "raspi");
 tempSensor temp_Sensor2("28-000000bf2dlc" , "raspi");
-double value = 0.0;
+
+double tempSens1 = 0.0;
+double tempSens2 = 0.0;
+
 
 int main() {
 	
