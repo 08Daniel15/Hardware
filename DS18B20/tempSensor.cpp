@@ -52,6 +52,7 @@ double tempSensor::get_value_from_file(){
             
         }
         mein_file.close();
+        mein_file.clear(); 
 
     }    
     else{
