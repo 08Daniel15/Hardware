@@ -43,6 +43,7 @@ int main()
 	
 	if(mode == "h")	
 	{
+		pwm = 200;
 		while(1)
 		{
 			//digitalWrite(17,HIGH);
@@ -52,7 +53,7 @@ int main()
 			//digitalWrite(17,LOW);
 			//std::cout << "LOW" << std::endl;
 			//delay(5000);
-			std::this_thread::sleep_for(std::chrono::seconds(5));
+			std::this_thread::sleep_for(std::chrono::seconds(3));
 			pwm = pwm + 200;
 
 			pwmWrite(12,pwm);
