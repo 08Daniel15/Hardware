@@ -18,7 +18,7 @@ int pwm = 0;
 
 int main()
 {
-	pinMode(18,PWM_OUTPUT);	
+	//pinMode(18,PWM_OUTPUT);	
 	std::cout << "Waehle Modus Simulation/Hardware   [s|h]" << std::endl;
 	std::cin >> mode;
 	std::cout << std::endl;
@@ -38,7 +38,7 @@ int main()
 
 	}
 
-
+	pinMode(18,PWM_OUTPUT);
 	pinMode(17,OUTPUT);
 	
 	if(mode == "h")	
@@ -92,6 +92,3 @@ int main()
 
 	return 0;
 }
-
-
-
