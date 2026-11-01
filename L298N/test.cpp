@@ -69,7 +69,7 @@ int main()
 			}
 			else
 			{
-				pwm = 0;
+				pwm = pwm;
 			}
 
 
