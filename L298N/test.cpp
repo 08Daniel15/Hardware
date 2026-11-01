@@ -6,12 +6,19 @@
 
 
 
+// Pin 12 und 18 sind ein PWM Kanal
+
+
+
 int test = 1;
 std::string mode = "";
+int pwm = 0;
+
+//pinMode (18,PWM_OUTPUT) ;
 
 int main()
 {
-	
+	pinMode(18,PWM_OUTPUT);	
 	std::cout << "Waehle Modus Simulation/Hardware   [s|h]" << std::endl;
 	std::cin >> mode;
 	std::cout << std::endl;
@@ -38,14 +45,32 @@ int main()
 	{
 		while(1)
 		{
-			digitalWrite(17,HIGH);
-			std::cout << "HIGH" << std::endl;
+			//digitalWrite(17,HIGH);
+			//std::cout << "HIGH" << std::endl;
+			//delay(5000);
+			//std::this_thread::sleep_for(std::chrono::seconds(5));
+			//digitalWrite(17,LOW);
+			//std::cout << "LOW" << std::endl;
 			//delay(5000);
 			std::this_thread::sleep_for(std::chrono::seconds(5));
-			digitalWrite(17,LOW);
-			std::cout << "LOW" << std::endl;
-			//delay(5000);
-			std::this_thread::sleep_for(std::chrono::seconds(5));
+			pwm = pwm + 200;
+
+			pwmWrite(12,pwm);
+
+			if(pwm >1024)
+			{
+				pwm = 0;
+			}
+			else if(pwm <0)
+			{
+				pwm = 0;
+			}
+			else
+			{
+				pwm = 0;
+			}
+
+
 		}
 	}
 	else if(mode == "s")
