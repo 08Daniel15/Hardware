@@ -1,6 +1,8 @@
 # DS18B20
 
 
+
+
 ## Anschluss
 Der DS18B20 wird mit 3,3V betrieben. 
 - PIN-1 3,3V
