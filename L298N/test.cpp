@@ -56,6 +56,7 @@ int main()
 			pwm = pwm + 200;
 
 			pwmWrite(12,pwm);
+			std::cout << "PWM = " <<  pwm << std::endl;
 
 			if(pwm >1024)
 			{
