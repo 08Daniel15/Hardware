@@ -18,7 +18,7 @@ int pwm = 0;
 
 int main()
 {
-	//pinMode(18,PWM_OUTPUT);	
+
 	std::cout << "Waehle Modus Simulation/Hardware   [s|h]" << std::endl;
 	std::cin >> mode;
 	std::cout << std::endl;
@@ -62,7 +62,7 @@ int main()
 			std::this_thread::sleep_for(std::chrono::seconds(3));
 			pwm = pwm + 200;
 
-			pwmWrite(12,pwm);
+			pwmWrite(18,pwm);
 			std::cout << "PWM = " <<  pwm << std::endl;
 
 			if(pwm >1024)
