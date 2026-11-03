@@ -62,7 +62,7 @@ int main()
 			std::this_thread::sleep_for(std::chrono::seconds(3));
 			pwm = pwm + 200;
 
-			pwmWrite(18,pwm);
+			pwmWrite(12,pwm);
 			std::cout << "PWM = " <<  pwm << std::endl;
 
 			if(pwm >1024)
