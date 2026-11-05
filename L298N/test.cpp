@@ -1,101 +1,65 @@
+
 #include <iostream>
-#include <stdio.h>
 #include <wiringPi.h>
 #include <chrono>
 #include <thread>
 
-
-
-// Pin 12 und 18 sind ein PWM Kanal
-
-
-
-int test = 1;
-std::string mode = "";
-int pwm = 0;
-
-//pinMode (18,PWM_OUTPUT) ;
+// GPIO-Belegung (BCM)
+#define ENA 18
+#define IN1 23
+#define IN2 24
 
 int main()
 {
+    // WiringPi initialisieren
+    if (wiringPiSetupGpio() == -1)
+    {
+        std::cout << "Fehler beim Initialisieren!" << std::endl;
+        return 1;
+    }
 
-	std::cout << "Waehle Modus Simulation/Hardware   [s|h]" << std::endl;
-	std::cin >> mode;
-	std::cout << std::endl;
+    std::cout << "WiringPi erfolgreich initialisiert" << std::endl;
 
+    // PWM konfigurieren
+    pwmSetMode(PWM_MODE_MS);
+    pwmSetRange(1024);
+    pwmSetClock(32);
 
-	std::cout << test << std::endl;
-	test = test + 1;
+    // GPIO konfigurieren
+    pinMode(ENA, PWM_OUTPUT);
+    pinMode(IN1, OUTPUT);
+    pinMode(IN2, OUTPUT);
 
-	if(wiringPiSetupGpio() == -1)
-	{
-		std::cout << "Fehler beim Initialisieren" << std::endl;
-		return 1;
-	}
-	else
-	{
-		std::cout << "WiringPi erfolgreich initialisiert" << std::endl;
+    // Drehrichtung festlegen
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
 
-	}
+    int pwm = 0;
 
-	pinMode(18,PWM_OUTPUT);
-	pinMode(23,OUTPUT);
-	pinMode(24,OUTPUT);
+    // Motor starten und Geschwindigkeit erhöhen
+    while (true)
+    {
+        // PWM-Signal ausgeben
+        pwmWrite(ENA, pwm);
 
-	digitalWrite(23, HIGH);
-	digitalWrite(24, LOW);
+        std::cout << "PWM = " << pwm
+                  << " / 1023" << std::endl;
 
+        // 3 Sekunden warten
+        std::this_thread::sleep_for(
+            std::chrono::seconds(3)
+        );
 
-	if(mode == "h")	
-	{
-		pwm = 200;
-		while(1)
-		{
-			//digitalWrite(17,HIGH);
-			//std::cout << "HIGH" << std::endl;
-			//delay(5000);
-			//std::this_thread::sleep_for(std::chrono::seconds(5));
-			//digitalWrite(17,LOW);
-			//std::cout << "LOW" << std::endl;
-			//delay(5000);
-			std::this_thread::sleep_for(std::chrono::seconds(3));
-			pwm = pwm + 200;
+        // PWM um 256 erhöhen
+        pwm += 256;
 
-			pwmWrite(18,pwm);
-			std::cout << "PWM = " <<  pwm << std::endl;
+        // Bei maximalem Wert wieder auf 0 setzen
+        if (pwm > 1023)
+        {
+            pwm = 0;
+        }
+    }
 
-			if(pwm >1024)
-			{
-				pwm = 0;
-			}
-			else if(pwm <0)
-			{
-				pwm = 0;
-			}
-			else
-			{
-				pwm = pwm;
-			}
-
-
-		}
-	}
-	else if(mode == "s")
-	{
-		while(1)
-		{
-			std::cout << "High" << std::endl;
-			//delay(5000);
-			std::this_thread::sleep_for(std::chrono::seconds(5));
-			std::cout << "Low" << std::endl;
-			//delay(5000);
-			std::this_thread::sleep_for(std::chrono::seconds(5));
-		}
-	}
-	else
-	{
-		std::cout << "Nothing to do here" << std::endl;	
-	}
-
-	return 0;
+    return 0;
 }
+
